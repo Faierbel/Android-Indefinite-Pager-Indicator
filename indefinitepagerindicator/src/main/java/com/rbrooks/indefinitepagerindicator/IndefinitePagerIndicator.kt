@@ -138,10 +138,12 @@ class IndefinitePagerIndicator @JvmOverloads constructor(
         }
 
         selectedDotPaint = getDefaultPaintConfig(
+            defaultStyle = Paint.Style.FILL_AND_STROKE,
             defaultColor = selectedDotColor
         )
 
-        dotPaint = getDefaultStrokePaintConfig(
+        dotPaint = getDefaultPaintConfig(
+            defaultStyle = Paint.Style.STROKE,
             defaultColor = dotColor
         )
     }
@@ -279,17 +281,7 @@ class IndefinitePagerIndicator @JvmOverloads constructor(
     // region Private Api
 
     private fun getDefaultPaintConfig(
-        defaultStyle: Paint.Style = Paint.Style.FILL,
-        isAntiAliasDefault: Boolean = true,
-        @ColorInt defaultColor: Int
-    ): Paint = Paint().apply {
-        style = defaultStyle
-        isAntiAlias = isAntiAliasDefault
-        color = defaultColor
-    }
-
-    private fun getDefaultStrokePaintConfig(
-        defaultStyle: Paint.Style = Paint.Style.STROKE,
+        defaultStyle: Paint.Style = Paint.Style.FILL_AND_STROKE,
         isAntiAliasDefault: Boolean = true,
         @ColorInt defaultColor: Int
     ): Paint = Paint().apply {
