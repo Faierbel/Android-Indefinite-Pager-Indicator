@@ -50,6 +50,9 @@ class IndefinitePagerIndicator @JvmOverloads constructor(
     private var dotSeparationDistancePx = dpToPx(
         dp = DEFAULT_DOT_SEPARATION_DISTANCE_DP.toFloat()
     )
+    private var strokeWidth = dpToPx(
+        dp = 1f
+    )
     private var supportRtl = false
     private var verticalSupport = false
 
@@ -138,7 +141,7 @@ class IndefinitePagerIndicator @JvmOverloads constructor(
             defaultColor = selectedDotColor
         )
 
-        dotPaint = getDefaultPaintConfig(
+        dotPaint = getDefaultStrokePaintConfig(
             defaultColor = dotColor
         )
     }
@@ -285,6 +288,17 @@ class IndefinitePagerIndicator @JvmOverloads constructor(
         color = defaultColor
     }
 
+    private fun getDefaultStrokePaintConfig(
+        defaultStyle: Paint.Style = Paint.Style.STROKE,
+        isAntiAliasDefault: Boolean = true,
+        @ColorInt defaultColor: Int
+    ): Paint = Paint().apply {
+        style = defaultStyle
+        isAntiAlias = isAntiAliasDefault
+        color = defaultColor
+        strokeWidth = this@IndefinitePagerIndicator.strokeWidth.toFloat()
+    }
+
     private fun getXYPositionsByCoordinate(coordinate: Float): Pair<Float, Float> {
         val xPosition: Float
         val yPosition: Float
@@ -300,7 +314,7 @@ class IndefinitePagerIndicator @JvmOverloads constructor(
 
     private fun getDotCoordinate(position: Int): Float =
         (position - intermediateSelectedItemPosition) * getDistanceBetweenTheCenterOfTwoDots() +
-            (getDistanceBetweenTheCenterOfTwoDots() * offsetPercent)
+                (getDistanceBetweenTheCenterOfTwoDots() * offsetPercent)
 
     /**
      * Get the y coordinate for a dot.
@@ -313,7 +327,8 @@ class IndefinitePagerIndicator @JvmOverloads constructor(
     /**
      * Calculates the distance between 2 dots center.
      */
-    private fun getDistanceBetweenTheCenterOfTwoDots() = 2 * dotRadiusPx + dotSeparationDistancePx
+    private fun getDistanceBetweenTheCenterOfTwoDots() =
+        2 * dotRadiusPx + dotSeparationDistancePx
 
     /**
      * Calculates a dot radius based on its position.
@@ -337,7 +352,7 @@ class IndefinitePagerIndicator @JvmOverloads constructor(
             else -> {
                 // Determine how close the dot is to the edge of the view for scaling the size of the dot
                 val percentTowardsEdge = (coordinateAbs - largeDotThreshold) /
-                    (getCalculatedWidth() / 2.01f - largeDotThreshold)
+                        (getCalculatedWidth() / 2.01f - largeDotThreshold)
                 interpolator.getInterpolation(1 - percentTowardsEdge) * dotRadiusPx
             }
         }
@@ -401,7 +416,11 @@ class IndefinitePagerIndicator @JvmOverloads constructor(
 
     // region Listeners
 
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+    override fun onPageScrolled(
+        position: Int,
+        positionOffset: Float,
+        positionOffsetPixels: Int
+    ) {
         if (supportRtl && isRtl()) {
             val currentPosition = getRTLPosition(
                 position = position
