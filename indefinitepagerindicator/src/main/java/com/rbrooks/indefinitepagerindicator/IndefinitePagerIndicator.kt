@@ -178,7 +178,7 @@ class IndefinitePagerIndicator @JvmOverloads constructor(
      * TODO: Add support for MATCH_PARENT
      */
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val minimumViewSize = 2 * selectedDotRadiusPx
+        val minimumViewSize = (2 * selectedDotRadiusPx) + (strokeWidth * 2)
         if (verticalSupport) {
             setMeasuredDimension(minimumViewSize, getCalculatedWidth())
         } else {
@@ -314,7 +314,7 @@ class IndefinitePagerIndicator @JvmOverloads constructor(
      * The bottom of the view is y = 0 and a dot is drawn from the center, so therefore
      * the y coordinate is simply the radius.
      */
-    private fun getDotYCoordinate(): Int = selectedDotRadiusPx
+    private fun getDotYCoordinate(): Int = selectedDotRadiusPx + strokeWidth
 
     /**
      * Calculates the distance between 2 dots center.

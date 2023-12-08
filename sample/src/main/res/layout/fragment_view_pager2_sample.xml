@@ -38,11 +38,12 @@
         android:layout_centerVertical="true"
         android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"
-        android:visibility="gone"
-        indefinite_pager_indicator:selectedDotRadius="10dp"
-        indefinite_pager_indicator:dotRadius="10dp"
-        indefinite_pager_indicator:dotColor="@android:color/holo_red_dark"
-        indefinite_pager_indicator:selectedDotColor="@android:color/holo_red_dark"
+        indefinite_pager_indicator:dotColor="@android:color/black"
+        indefinite_pager_indicator:dotRadius="4dp"
+        indefinite_pager_indicator:dotSeparation="15dp"
+        indefinite_pager_indicator:fadingDotCount="1"
+        indefinite_pager_indicator:selectedDotColor="@android:color/black"
+        indefinite_pager_indicator:selectedDotRadius="4dp"
         indefinite_pager_indicator:verticalSupport="true" />
 
     <RelativeLayout
